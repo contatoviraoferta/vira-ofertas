@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vira Ofertas</title>
+<meta name="description" content="Ofertas do Mercado Livre postadas no @vira_ofertas.">
+<style>
+:root { --bg:#f7f6f2; --card:#fff; --ink:#1c1c1a; --muted:#6b6a64; --line:#e4e2db; --accent:#e8590c; --accent-ink:#fff; --alvo:#fff1e6; }
+@media (prefers-color-scheme: dark) { :root { --bg:#141413; --card:#1f1e1c; --ink:#eeede8; --muted:#a3a29b; --line:#33322e; --accent:#ff8a4c; --accent-ink:#1a0e05; --alvo:#3a2414; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; }
+.topo { max-width:640px; margin:0 auto; padding:28px 16px 8px; text-align:center; }
+h1 { margin:0; font-size:28px; letter-spacing:-.5px; }
+.sub { color:var(--muted); margin:6px 0 16px; }
+form { display:flex; gap:8px; max-width:360px; margin:0 auto; }
+input { flex:1; font:inherit; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--ink); min-width:0; }
+button, .ver { font:inherit; font-weight:600; border:0; border-radius:10px; padding:10px 16px; background:var(--accent); color:var(--accent-ink); cursor:pointer; text-decoration:none; display:inline-block; text-align:center; }
+#msg { color:var(--muted); font-size:14px; min-height:20px; margin-top:6px; }
+main { max-width:640px; margin:0 auto; padding:8px 16px 32px; display:grid; gap:12px; }
+.oferta { display:grid; grid-template-columns:104px 1fr; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:10px; scroll-margin-top:16px; }
+.oferta:target { background:var(--alvo); border-color:var(--accent); }
+.oferta img { width:104px; height:104px; object-fit:cover; border-radius:10px; background:var(--line); }
+.num { color:var(--accent); font-weight:700; font-size:14px; }
+.oferta h2 { font-size:16px; margin:2px 0 4px; }
+.oferta p { margin:0 0 8px; color:var(--muted); font-size:14px; }
+.vazio { text-align:center; color:var(--muted); padding:32px 0; }
+footer { max-width:640px; margin:0 auto; padding:0 16px 32px; color:var(--muted); font-size:13px; text-align:center; }
+footer a { color:inherit; }
+</style>
+</head>
+<body>
+<header class="topo">
+  <h1>Vira Ofertas</h1>
+  <p class="sub">Viu um post no <a href="https://www.instagram.com/vira_ofertas/" style="color:inherit">@vira_ofertas</a>? Digite o número da oferta.</p>
+  <form id="busca"><input name="n" type="number" min="1" inputmode="numeric" placeholder="Nº da oferta" aria-label="Número da oferta"><button>Buscar</button></form>
+  <div id="msg" role="status"></div>
+</header>
+<main>
+<p class="vazio">As ofertas aparecem aqui assim que forem postadas no Instagram.</p>
+</main>
+<footer>
+  <p>Os links desta página são <strong>links de afiliado</strong> do Mercado Livre: posso receber uma comissão pelas compras, sem custo extra para você. Preço e disponibilidade são do Mercado Livre e podem mudar.</p>
+  <p><a href="https://www.instagram.com/vira_ofertas/">@vira_ofertas</a></p>
+</footer>
+<script>
+const f = document.getElementById('busca'), msg = document.getElementById('msg');
+f.addEventListener('submit', e => {
+  e.preventDefault();
+  const n = parseInt(f.n.value, 10), alvo = document.getElementById('oferta-' + n);
+  if (alvo) { location.hash = 'oferta-' + n; msg.textContent = ''; }
+  else msg.textContent = n ? 'A oferta nº ' + n + ' não está mais disponível.' : '';
+});
+</script>
+</body>
+</html>
